@@ -226,7 +226,7 @@ class Document {
 
       if (op.isInsert) {
         // Must normalize data before inserting into the document, makes sure
-        // that any embedded objects are converted into EmbeddableObject type.
+        // that any embedded objects are converted into Embeddable type.
         _root.insert(offset, _normalize(op.data), style);
       } else if (op.isDelete) {
         _root.delete(offset, op.length);
@@ -304,7 +304,6 @@ class Document {
     if (data is String) {
       return data;
     }
-
     if (data is Embeddable) {
       return data;
     }

@@ -21,7 +21,7 @@ abstract class Leaf extends Node {
   Leaf.val(Object val) : _value = val;
 
   /// Contents of this node, either a String if this is a [Text] or an
-  /// [Embed] if this is an [BlockEmbed].
+  /// [Embeddable] if this is an [Embed].
   Object get value => _value;
   Object _value;
 
