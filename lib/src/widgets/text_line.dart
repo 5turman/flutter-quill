@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/documents/attribute.dart';
 import '../models/documents/nodes/container.dart' as container_node;
+import '../models/documents/nodes/embeddable.dart';
 import '../models/documents/nodes/leaf.dart';
 import '../models/documents/nodes/leaf.dart' as leaf;
 import '../models/documents/nodes/line.dart';
@@ -132,10 +133,12 @@ class _TextLineState extends State<TextLine> {
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
     if (widget.line.hasEmbed && widget.line.childCount == 1) {
-      // For video, it is always single child
       final embed = widget.line.children.single as Embed;
-      return EmbedProxy(widget.embedBuilder(
-          context, widget.controller, embed, widget.readOnly));
+      if (embed.value.type == BlockEmbed.videoType) {
+        // For video, it is always single child
+        return EmbedProxy(widget.embedBuilder(
+            context, widget.controller, embed, widget.readOnly));
+      }
     }
     final textSpan = _getTextSpanForWholeLine(context);
     final strutStyle = StrutStyle.fromTextStyle(textSpan.style!);
